@@ -53,6 +53,10 @@ To aid in improving the development and release processes, here are some customi
 
 ### Git Utilities
 
+* `git current-branch`
+
+  Displays the currently checked out branch.
+
 * `git short-id`
 
   This command returns the short version (first 7 characters) of the commit id of the current HEAD.
@@ -70,6 +74,10 @@ To aid in improving the development and release processes, here are some customi
   ```
   git tag-for-build | pbcopy
   ```
+
+* `git release`
+
+  Tags the `HEAD` with the short id and pushes it to the remote repository. By default, it uses the `origin` repository but it can push to another remote repository provided as an argument to this utility.
 
 * `git changelogs`
 
