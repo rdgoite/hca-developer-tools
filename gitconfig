@@ -1,5 +1,6 @@
 [alias]
-	short-id = show -q --format=%h
 	current-branch = rev-parse --abbrev-ref HEAD
-	tag-for-build = "!fun() { prefix=$1; if [ -z $prefix ]; then prefix=$(git current-branch); fi; release_tag=$prefix\"_\"$(git short-id); if [ -z $(git tag -l $release_tag) ]; then git tag $release_tag; fi; echo $release_tag; }; fun"
+	short-id = show -q --format=%h
+	tag-for-build = "!fun() { build_tag=$(git short-id); prefix=$1; if [ ! -z $prefix ]; then build_tag=${prefix}\"_\"${build_tag}; fi; if [ -z $(git tag -l $build_tag) ]; then git tag $build_tag; fi; echo $build_tag; }; fun"
+	release = "!fun() { repo=$1; if [ -z $repo ]; repo=origin; fi; git tag-for-build | xargs git push $repo }; fun"
 	changelog = "!fun() { ref_range=HEAD; if [ ! -z $1 ]; then ref_range=$1..HEAD; fi; if [ ! -z $2 ]; then ref_range=$2..$1; fi; git log --merges --format=%s $ref_range | awk '{print \"* \"$0}'; }; fun"
